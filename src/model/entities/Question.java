@@ -1,5 +1,6 @@
 package model.entities;
 
-public class Questions {
+public class Question {
+
 
 }
