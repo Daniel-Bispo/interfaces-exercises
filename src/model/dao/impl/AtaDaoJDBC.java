@@ -13,9 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import db.DbException;
 import model.dao.CrudDAO;
@@ -53,6 +53,9 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	@Override
 	public List<Ata> findAll() {
 
+		// A list which contains all Ata elements read from database
+		List<Ata> ataList = new ArrayList<>();
+		
 		String sql = "SELECT * FROM ata ORDER BY ata_number";
 
 		PreparedStatement pstmt = null;
@@ -63,26 +66,29 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
-			List<Ata> ataList = new ArrayList<>();
-			Map<Integer, Ata> ataMap = new HashMap<>();
+			// It uses a Set to sort all object before store them into the return list
+			Set<Ata> ataSet = new TreeSet<>();
 
 			while (rs.next()) {
-
-				Ata newAtaListItem = ataMap.get(rs.getInt("ata_number")); //Needed to sort the Map
-
-				if (newAtaListItem == null) {
-					newAtaListItem = createAtaObj(rs);
-					ataMap.put(rs.getInt("id"), newAtaListItem);
-				}
 				
-				ataList.add(newAtaListItem);
+				Ata ataObj = createAtaObj(rs);
+				
+				// Check whether an element is into the set to prevent rewrite it
+				if(!ataSet.contains(ataObj)) {
+					ataSet.add(ataObj);
+				}				
+			}
+			
+			// Fill the return list with sorted objects
+			for(Ata ata : ataSet) {
+				ataList.add(ata);
 			}
 
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
 
-		return null;
+		return ataList;
 	}
 
 	// Instantiate an Ata object used by findAll()
