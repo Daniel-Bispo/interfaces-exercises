@@ -9,8 +9,9 @@ public class CourseName {
 	private Date createDate;
 	private Date updateDate;
 	private String user;
-	
-	public CourseName() {}
+
+	public CourseName() {
+	}
 
 	public CourseName(int id, String course, Date createDate, Date updateDate, String user) {
 		this.id = id;
@@ -64,5 +65,5 @@ public class CourseName {
 	public String toString() {
 		return "CourseName [id=" + id + ", course=" + course + ", createDate=" + createDate + ", updateDate="
 				+ updateDate + ", user=" + user + "]";
-	}	
+	}
 }
