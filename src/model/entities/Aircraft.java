@@ -3,14 +3,15 @@ package model.entities;
 import java.util.Date;
 
 public class Aircraft {
-	
+
 	private int id;
 	private String aircraft;
 	private Date createDate;
 	private Date updateDate;
 	private String userLoggin;
-	
-	public Aircraft() {}
+
+	public Aircraft() {
+	}
 
 	public Aircraft(int id, String aircraft, Date createDate, Date updateDate, String userLoggin) {
 		this.id = id;
@@ -61,14 +62,8 @@ public class Aircraft {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aircraft == null) ? 0 : aircraft.hashCode());
-		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((updateDate == null) ? 0 : updateDate.hashCode());
-		result = prime * result + ((userLoggin == null) ? 0 : userLoggin.hashCode());
-		return result;
+	public String toString() {
+		return "Aircraft [id=" + id + ", aircraft=" + aircraft + ", createDate=" + createDate + ", updateDate="
+				+ updateDate + ", userLoggin=" + userLoggin + "]";
 	}
 }
