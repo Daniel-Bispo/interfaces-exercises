@@ -8,8 +8,6 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
 *
 *
@@ -18,14 +16,14 @@ public class Aircraft {
 
 	private int id;
 	private String aircraft;
-	private Date createDate;
-	private Date updateDate;
+	private String createDate;
+	private String updateDate;
 	private String userLoggin;
 
 	public Aircraft() {
 	}
 
-	public Aircraft(int id, String aircraft, Date createDate, Date updateDate, String userLoggin) {
+	public Aircraft(int id, String aircraft, String createDate, String updateDate, String userLoggin) {
 		this.id = id;
 		this.aircraft = aircraft;
 		this.createDate = createDate;
@@ -49,19 +47,19 @@ public class Aircraft {
 		this.aircraft = aircraft;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 

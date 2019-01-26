@@ -12,8 +12,7 @@ import java.util.List;
 
 /**
  * CrudDAO declares all operations with the entities Using type T enables
- * CrudDAO's flexibility
- * Insert, update and delete any type of object
+ * CrudDAO's flexibility. Insert, update and delete any type of object.
  */
 public interface CrudDAO<T> {
 
@@ -21,7 +20,7 @@ public interface CrudDAO<T> {
 
 	void upDate(T obj);
 
-	void deleteById(T obj);
+	void deleteById(int id);
 
 	T findById(int id); // Return any type of object
 

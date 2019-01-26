@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import db.DB;
 import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Ata;
@@ -38,13 +40,52 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	}
 
 	@Override
-	public void deleteById(Ata obj) {
+	public void deleteById(int id) {
+		
+		String sql = "DELETE FROM ata WHERE id=?";
+
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(pstmt);
+		}
+		
 	}
 
 	@Override
 	public Ata findById(int id) {
 
-		return null;
+		String sql = "SELECT * FROM ata WHERE id=?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return createAtaObj(rs);
+			}
+
+			return null;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pstmt);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
@@ -68,11 +109,14 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 				ataList.add(createAtaObj(rs));
 			}
 
+			return ataList;
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pstmt);
+			DB.closeResultSet(rs);
 		}
-
-		return ataList;
 	}
 
 	// Instantiate an Ata object used by findAll()
