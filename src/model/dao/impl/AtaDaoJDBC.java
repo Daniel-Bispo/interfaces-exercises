@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import db.DB;
@@ -37,27 +38,48 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 
 	@Override
 	public void upDate(Ata obj) {
+
+		String sql = "UPDATE ata SET ata_number=?, info=?, create_date=?, update_date=?, user_loggin=? WHERE id=?";
+
+		PreparedStatement pstmt = null;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, obj.getAtaNumber());
+			pstmt.setString(2, obj.getInfo());
+			pstmt.setString(3, obj.getCreateDate());
+			pstmt.setString(4, new Date().toString()); // Set to today always
+			pstmt.setString(5, obj.getUserLoggin());
+			pstmt.setInt(6, obj.getId());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pstmt);
+		}
 	}
 
 	@Override
 	public void deleteById(int id) {
-		
+
 		String sql = "DELETE FROM ata WHERE id=?";
 
 		PreparedStatement pstmt = null;
-		
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}finally {
+		} finally {
 			DB.closeStatement(pstmt);
 		}
-		
 	}
 
 	@Override
