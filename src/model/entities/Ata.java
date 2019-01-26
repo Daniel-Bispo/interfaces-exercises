@@ -8,8 +8,6 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
 *
 *
@@ -17,15 +15,15 @@ import java.util.Date;
 public class Ata {
 	
 	private int id;
-	private int ataNumber;
+	private String ataNumber;
 	private String info;
-	private Date createDate;
-	private Date updateDate;
+	private String createDate;
+	private String updateDate;
 	private String userLoggin;
 	
 	public Ata() {}
 
-	public Ata(int id, int ataNumber, String info, Date createDate, Date updateDate, String userLoggin) {
+	public Ata(int id, String ataNumber, String info, String createDate, String updateDate, String userLoggin) {
 		this.id = id;
 		this.ataNumber = ataNumber;
 		this.info = info;
@@ -42,11 +40,11 @@ public class Ata {
 		this.id = id;
 	}
 
-	public int getAtaNumber() {
+	public String getAtaNumber() {
 		return ataNumber;
 	}
 
-	public void setAtaNumber(int ataNumber) {
+	public void setAtaNumber(String ataNumber) {
 		this.ataNumber = ataNumber;
 	}
 
@@ -58,19 +56,19 @@ public class Ata {
 		this.info = info;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -83,12 +81,17 @@ public class Ata {
 	}
 
 	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ataNumber;
+		result = prime * result + ((ataNumber == null) ? 0 : ataNumber.hashCode());
+		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((info == null) ? 0 : info.hashCode());
+		result = prime * result + ((updateDate == null) ? 0 : updateDate.hashCode());
+		result = prime * result + ((userLoggin == null) ? 0 : userLoggin.hashCode());
 		return result;
 	}
 
@@ -101,7 +104,32 @@ public class Ata {
 		if (getClass() != obj.getClass())
 			return false;
 		Ata other = (Ata) obj;
-		if (ataNumber != other.ataNumber)
+		if (ataNumber == null) {
+			if (other.ataNumber != null)
+				return false;
+		} else if (!ataNumber.equals(other.ataNumber))
+			return false;
+		if (createDate == null) {
+			if (other.createDate != null)
+				return false;
+		} else if (!createDate.equals(other.createDate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (info == null) {
+			if (other.info != null)
+				return false;
+		} else if (!info.equals(other.info))
+			return false;
+		if (updateDate == null) {
+			if (other.updateDate != null)
+				return false;
+		} else if (!updateDate.equals(other.updateDate))
+			return false;
+		if (userLoggin == null) {
+			if (other.userLoggin != null)
+				return false;
+		} else if (!userLoggin.equals(other.userLoggin))
 			return false;
 		return true;
 	}
@@ -110,5 +138,5 @@ public class Ata {
 	public String toString() {
 		return "Ata [id=" + id + ", ataNumber=" + ataNumber + ", info=" + info + ", createDate=" + createDate
 				+ ", updateDate=" + updateDate + ", userLoggin=" + userLoggin + "]";
-	}
+	}	
 }

@@ -14,9 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
 import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Ata;
@@ -55,7 +52,7 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 
 		// A list which contains all Ata elements read from database
 		List<Ata> ataList = new ArrayList<>();
-		
+
 		String sql = "SELECT * FROM ata ORDER BY ata_number";
 
 		PreparedStatement pstmt = null;
@@ -66,22 +63,9 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
-			// It uses a Set to sort all object before store them into the return list
-			Set<Ata> ataSet = new TreeSet<>();
-
 			while (rs.next()) {
-				
-				Ata ataObj = createAtaObj(rs);
-				
-				// Check whether an element is into the set to prevent rewrite it
-				if(!ataSet.contains(ataObj)) {
-					ataSet.add(ataObj);
-				}				
-			}
-			
-			// Fill the return list with sorted objects
-			for(Ata ata : ataSet) {
-				ataList.add(ata);
+
+				ataList.add(createAtaObj(rs));
 			}
 
 		} catch (SQLException e) {
@@ -92,16 +76,16 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	}
 
 	// Instantiate an Ata object used by findAll()
-	private Ata createAtaObj(ResultSet rs) throws SQLException{
+	private Ata createAtaObj(ResultSet rs) throws SQLException {
 
 		Ata ata = new Ata();
 
-			ata.setId(rs.getInt("id"));
-			ata.setAtaNumber(rs.getInt("ata_number"));
-			ata.setInfo(rs.getString("info"));
-			ata.setCreateDate(rs.getDate("create_date"));
-			ata.setUpdateDate(rs.getDate("update_date"));
-			ata.setUserLoggin(rs.getString("user_loggin"));
+		ata.setId(rs.getInt("id"));
+		ata.setAtaNumber(rs.getString("ata_number"));
+		ata.setInfo(rs.getString("info"));
+		ata.setCreateDate(rs.getString("create_date"));
+		ata.setUpdateDate(rs.getString("update_date"));
+		ata.setUserLoggin(rs.getString("user_loggin"));
 
 		return ata;
 	}
