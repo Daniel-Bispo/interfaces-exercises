@@ -19,23 +19,33 @@ public class Program {
 //			System.out.println(ata);
 //		}
 
-		int del = 29;
+//		int del = 35;
 //
 //		System.out.println(ataDAO.findById(del));
 //		
-//		CrudDAO<Ata> ataDAO = DaoFactory.createAtaDAO();
 //		ataDAO.deleteById(del);
 //		
 //		System.out.println(ataDAO.findById(del));
 		
-		Ata delObj = ataDAO.findById(del);
-		System.out.println("Before: " + delObj + "\n");
+//		Ata delObj = ataDAO.findById(del);
+//		System.out.println("Before: " + delObj + "\n");
+//		
+//		delObj.setAtaNumber("9999");
+//		delObj.setInfo("THESE LINE HAS BEEN CHANGED");
+//		
+//		ataDAO.upDate(delObj);
+//		
+//		System.out.println("After: " + delObj);
 		
-		delObj.setAtaNumber("9999");
-		delObj.setInfo("THESE LINE HAS BEEN CHANGED");
+		Ata insObj = new Ata();
 		
-		ataDAO.upDate(delObj);
+		insObj.setId(666);
+		insObj.setAtaNumber("77777");
+		insObj.setInfo("ATA TEST");
 		
-		System.out.println("After: " + delObj);
+		System.out.println("Obj Before: " + insObj + "\n");
+		ataDAO.insert(insObj);
+		System.out.println("Obj after: " + insObj + "\n");
+		System.out.println("Database after: " + ataDAO.findById(insObj.getId()));
 	}
 }
