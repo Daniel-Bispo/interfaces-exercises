@@ -34,7 +34,7 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	// An new Aircraft object has to be created before. Then use that as the parameter
+	// A new Aircraft object has to be created before. Then use that as the parameter
 	// for this method
 	public void insert(Aircraft obj) {
 

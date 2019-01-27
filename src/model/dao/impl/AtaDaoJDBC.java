@@ -34,7 +34,7 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	}
 
 	@Override
-	// An new Ata object has to be created before. Then use that as the parameter
+	// A new Ata object has to be created before. Then use that as the parameter
 	// for this method
 	public void insert(Ata obj) {
 

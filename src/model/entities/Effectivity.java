@@ -8,23 +8,22 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
 *
 *
 */
 public class Effectivity {
-	
+
 	private int id;
 	private String effecInfo;
-	private Date createDate;
-	private Date updateDate;
+	private String createDate;
+	private String updateDate;
 	private String userLoggin;
-	
-	public Effectivity() {}
 
-	public Effectivity(int id, String effecInfo, Date createDate, Date updateDate, String userLoggin) {
+	public Effectivity() {
+	}
+
+	public Effectivity(int id, String effecInfo, String createDate, String updateDate, String userLoggin) {
 		this.id = id;
 		this.effecInfo = effecInfo;
 		this.createDate = createDate;
@@ -48,19 +47,19 @@ public class Effectivity {
 		this.effecInfo = effecInfo;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
