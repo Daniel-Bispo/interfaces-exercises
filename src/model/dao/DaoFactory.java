@@ -9,7 +9,9 @@
 package model.dao;
 
 import db.DB;
+import model.dao.impl.AircraftDaoJDBC;
 import model.dao.impl.AtaDaoJDBC;
+import model.entities.Aircraft;
 import model.entities.Ata;
 
 /**
@@ -20,5 +22,9 @@ public class DaoFactory {
 
 	public static CrudDAO<Ata> createAtaDAO() {
 		return new AtaDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<Aircraft> createAircraftDAO() {
+		return new AircraftDaoJDBC(DB.getConnection());
 	}
 }

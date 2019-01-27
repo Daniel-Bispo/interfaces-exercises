@@ -5,47 +5,64 @@ import java.util.List;
 import model.dao.CrudDAO;
 import model.dao.DaoFactory;
 import model.entities.Aircraft;
-import model.entities.Ata;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		CrudDAO<Ata> ataDAO = DaoFactory.createAtaDAO();
-//
-//		List<Ata> ataList = ataDAO.findAll();
-//
-//		for (Ata ata : ataList) {
-//			System.out.println(ata);
-//		}
+		CrudDAO<Aircraft> aircraftDAO = DaoFactory.createAircraftDAO();
 
-//		int del = 35;
-//
-//		System.out.println(ataDAO.findById(del));
-//		
-//		ataDAO.deleteById(del);
-//		
-//		System.out.println(ataDAO.findById(del));
+		/*
+		 * TEST 1 - findAll()
+		 */
+		System.out.println("=== TEST 1 - findAll() ===");
+		List<Aircraft> aircraftList = aircraftDAO.findAll();
+
+		for (Aircraft aircraft : aircraftList) {
+			System.out.println(aircraft);
+		}
+		System.out.println("\n");
+
+		int objTest = 3;
 		
-//		Ata delObj = ataDAO.findById(del);
-//		System.out.println("Before: " + delObj + "\n");
-//		
-//		delObj.setAtaNumber("9999");
-//		delObj.setInfo("THESE LINE HAS BEEN CHANGED");
-//		
-//		ataDAO.upDate(delObj);
-//		
-//		System.out.println("After: " + delObj);
-		
-		Ata insObj = new Ata();
-		
+		/*
+		 * TEST 2 - findById()
+		 */
+		System.out.println("=== TEST 2 - findById() ===");
+		System.out.println(aircraftDAO.findById(objTest));
+		System.out.println("\n");
+
+		/*
+		 * TEST 3 - insert()
+		 */
+		System.out.println("=== TEST 3 - insert() ===");
+		Aircraft insObj = new Aircraft();
 		insObj.setId(666);
-		insObj.setAtaNumber("77777");
-		insObj.setInfo("ATA TEST");
-		
+		insObj.setAircraft("77777");	
 		System.out.println("Obj Before: " + insObj + "\n");
-		ataDAO.insert(insObj);
+		aircraftDAO.insert(insObj);
+		objTest = insObj.getId(); // For the next tests
 		System.out.println("Obj after: " + insObj + "\n");
-		System.out.println("Database after: " + ataDAO.findById(insObj.getId()));
+		System.out.println("Database after: " + aircraftDAO.findById(insObj.getId()));
+		System.out.println("\n");
+		
+		/*
+		 * TEST 4 - update()
+		 */
+		System.out.println("=== TEST 4 - update() ===");
+		Aircraft updateObj = aircraftDAO.findById(objTest);
+		System.out.println("Before: " + updateObj + "\n");		
+		updateObj.setAircraft("THESE LINE HAS BEEN CHANGED");
+		aircraftDAO.upDate(updateObj);
+		System.out.println("After: " + updateObj);
+		System.out.println("\n");
+		
+		/*
+		 * TEST 5 - deleteById()
+		 */
+		System.out.println("=== TEST 5 - deleteById() ===");
+		System.out.println(aircraftDAO.findById(objTest));
+		aircraftDAO.deleteById(objTest);		
+		System.out.println("Database contains the object? " + aircraftDAO.findById(objTest));
 	}
 }
