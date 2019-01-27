@@ -14,11 +14,13 @@ import model.dao.impl.AtaDaoJDBC;
 import model.dao.impl.CourseEffectivityDaoJDBC;
 import model.dao.impl.CourseNameDaoJDBC;
 import model.dao.impl.EffectivityDaoJDBC;
+import model.dao.impl.UserProfileDaoJDBC;
 import model.entities.Aircraft;
 import model.entities.Ata;
 import model.entities.CourseEffectivity;
 import model.entities.CourseName;
 import model.entities.Effectivity;
+import model.entities.UserProfile;
 
 /**
  * It instantiates all implementation of entities DAO. DaoFactory makes DAO more
@@ -44,5 +46,9 @@ public class DaoFactory {
 	
 	public static CrudDAO<CourseName> createCourseNameDAO() {
 		return new CourseNameDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<UserProfile> createUserProfileDAO() {
+		return new UserProfileDaoJDBC(DB.getConnection());
 	}
 }
