@@ -11,8 +11,10 @@ package model.dao;
 import db.DB;
 import model.dao.impl.AircraftDaoJDBC;
 import model.dao.impl.AtaDaoJDBC;
+import model.dao.impl.CourseEffectivityDaoJDBC;
 import model.entities.Aircraft;
 import model.entities.Ata;
+import model.entities.CourseEffectivity;
 
 /**
  * It instantiates all implementation of entities DAO. DaoFactory makes DAO more
@@ -26,5 +28,9 @@ public class DaoFactory {
 	
 	public static CrudDAO<Aircraft> createAircraftDAO() {
 		return new AircraftDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<CourseEffectivity> createCourseEffectivityDAO() {
+		return new CourseEffectivityDaoJDBC(DB.getConnection());
 	}
 }

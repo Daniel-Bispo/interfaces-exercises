@@ -8,8 +8,6 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
  * Information about engine type, special operation courses or specific courses
  * It means how a course is applicable
@@ -18,19 +16,19 @@ public class CourseEffectivity {
 
 	private int id;
 	private String courseEffecInfo;
-	private Date createDate;
-	private Date updateDate;
-	private String userLogin;
+	private String createDate;
+	private String updateDate;
+	private String userLoggin;
 
 	public CourseEffectivity() {
 	}
 
-	public CourseEffectivity(int id, String courseEffecInfo, Date createDate, Date updateDate, String userLogin) {
+	public CourseEffectivity(int id, String courseEffecInfo, String createDate, String updateDate, String userLoggin) {
 		this.id = id;
 		this.courseEffecInfo = courseEffecInfo;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
-		this.userLogin = userLogin;
+		this.userLoggin = userLoggin;
 	}
 
 	public int getId() {
@@ -49,33 +47,33 @@ public class CourseEffectivity {
 		this.courseEffecInfo = courseEffecInfo;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public String getUserLogin() {
-		return userLogin;
+	public String getUserLoggin() {
+		return userLoggin;
 	}
 
-	public void setUserLogin(String userLogin) {
-		this.userLogin = userLogin;
+	public void setUserLoggin(String userLoggin) {
+		this.userLoggin = userLoggin;
 	}
 
 	@Override
 	public String toString() {
 		return "CourseEffectivity [id=" + id + ", courseEffecInfo=" + courseEffecInfo + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + ", userLogin=" + userLogin + "]";
+				+ ", updateDate=" + updateDate + ", userLogin=" + userLoggin + "]";
 	}
 }
