@@ -14,12 +14,14 @@ import model.dao.impl.AtaDaoJDBC;
 import model.dao.impl.CourseEffectivityDaoJDBC;
 import model.dao.impl.CourseNameDaoJDBC;
 import model.dao.impl.EffectivityDaoJDBC;
+import model.dao.impl.UserDaoJDBC;
 import model.dao.impl.UserProfileDaoJDBC;
 import model.entities.Aircraft;
 import model.entities.Ata;
 import model.entities.CourseEffectivity;
 import model.entities.CourseName;
 import model.entities.Effectivity;
+import model.entities.User;
 import model.entities.UserProfile;
 
 /**
@@ -50,5 +52,9 @@ public class DaoFactory {
 	
 	public static CrudDAO<UserProfile> createUserProfileDAO() {
 		return new UserProfileDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<User> createUserDAO() {
+		return new UserDaoJDBC(DB.getConnection());
 	}
 }
