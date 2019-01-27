@@ -4,56 +4,56 @@ import java.util.List;
 
 import model.dao.CrudDAO;
 import model.dao.DaoFactory;
-import model.entities.Effectivity;
+import model.entities.CourseName;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		CrudDAO<Effectivity> effectivityDAO = DaoFactory.createEffectivityDAO();
+		CrudDAO<CourseName> courseNameDAO = DaoFactory.createCourseNameDAO();
 
 		/*
 		 * TEST 1 - findAll()
 		 */
 		System.out.println("=== TEST 1 - findAll() ===");
-		List<Effectivity> effectivityList = effectivityDAO.findAll();
+		List<CourseName> courseNameList = courseNameDAO.findAll();
 
-		for (Effectivity effectivity : effectivityList) {
-			System.out.println(effectivity);
+		for (CourseName courseName : courseNameList) {
+			System.out.println(courseName);
 		}
 		System.out.println("\n");
 
-		int objTest = 3;
+		int objTest = 2;
 
 		/*
 		 * TEST 2 - findById()
 		 */
 		System.out.println("=== TEST 2 - findById() ===");
-		System.out.println(effectivityDAO.findById(objTest));
+		System.out.println(courseNameDAO.findById(objTest));
 		System.out.println("\n");
 
 		/*
 		 * TEST 3 - insert()
 		 */
 		System.out.println("=== TEST 3 - insert() ===");
-		Effectivity insObj = new Effectivity();
+		CourseName insObj = new CourseName();
 		insObj.setId(666);
-		insObj.setEffecInfo("77777");
+		insObj.setCourse("77777");
 		System.out.println("Obj Before: " + insObj + "\n");
-		effectivityDAO.insert(insObj);
+		courseNameDAO.insert(insObj);
 		objTest = insObj.getId(); // For the next tests
 		System.out.println("Obj after: " + insObj + "\n");
-		System.out.println("Database after: " + effectivityDAO.findById(insObj.getId()));
+		System.out.println("Database after: " + courseNameDAO.findById(insObj.getId()));
 		System.out.println("\n");
 
 		/*
 		 * TEST 4 - update()
 		 */
 		System.out.println("=== TEST 4 - update() ===");
-		Effectivity updateObj = effectivityDAO.findById(objTest);
+		CourseName updateObj = courseNameDAO.findById(objTest);
 		System.out.println("Before: " + updateObj + "\n");
-		updateObj.setEffecInfo("THESE LINE HAS BEEN CHANGED");
-		effectivityDAO.upDate(updateObj);
+		updateObj.setCourse("THESE LINE HAS BEEN CHANGED");
+		courseNameDAO.upDate(updateObj);
 		System.out.println("After: " + updateObj);
 		System.out.println("\n");
 
@@ -61,8 +61,8 @@ public class Program {
 		 * TEST 5 - deleteById()
 		 */
 		System.out.println("=== TEST 5 - deleteById() ===");
-		System.out.println(effectivityDAO.findById(objTest));
-		effectivityDAO.deleteById(objTest);
-		System.out.println("Database contains the object? " + effectivityDAO.findById(objTest));
+		System.out.println(courseNameDAO.findById(objTest));
+		courseNameDAO.deleteById(objTest);
+		System.out.println("Database contains the object? " + courseNameDAO.findById(objTest));
 	}
 }
