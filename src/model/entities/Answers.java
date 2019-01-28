@@ -8,8 +8,6 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
  * The fields coor_1, corr_2 and corr_3 store which answer is correct
  */
@@ -22,15 +20,15 @@ public class Answers {
 	private String ans2;
 	private boolean corr3;
 	private String ans3;
-	private Date createDate;
-	private Date updateDate;
-	private String userLoggin;
+	private String createDate;
+	private String updateDate;
+	private User userLoggin;
 
 	public Answers() {
 	}
 
 	public Answers(int id, boolean corr1, String ans1, boolean corr2, String ans2, boolean corr3, String ans3,
-			Date createDate, Date updateDate, String userLoggin) {
+			String createDate, String updateDate, User userLoggin) {
 		this.id = id;
 		this.corr1 = corr1;
 		this.ans1 = ans1;
@@ -99,27 +97,27 @@ public class Answers {
 		this.ans3 = ans3;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public String getUserLoggin() {
+	public User getUserLoggin() {
 		return userLoggin;
 	}
 
-	public void setUserLoggin(String userLoggin) {
+	public void setUserLoggin(User userLoggin) {
 		this.userLoggin = userLoggin;
 	}
 

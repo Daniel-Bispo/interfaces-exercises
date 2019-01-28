@@ -10,6 +10,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.impl.AircraftDaoJDBC;
+import model.dao.impl.AnswersDaoJDBC;
 import model.dao.impl.AtaDaoJDBC;
 import model.dao.impl.CourseEffectivityDaoJDBC;
 import model.dao.impl.CourseNameDaoJDBC;
@@ -17,6 +18,7 @@ import model.dao.impl.EffectivityDaoJDBC;
 import model.dao.impl.UserDaoJDBC;
 import model.dao.impl.UserProfileDaoJDBC;
 import model.entities.Aircraft;
+import model.entities.Answers;
 import model.entities.Ata;
 import model.entities.CourseEffectivity;
 import model.entities.CourseName;
@@ -56,5 +58,9 @@ public class DaoFactory {
 	
 	public static CrudDAO<User> createUserDAO() {
 		return new UserDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<Answers> createAnswersDAO() {
+		return new AnswersDaoJDBC(DB.getConnection());
 	}
 }

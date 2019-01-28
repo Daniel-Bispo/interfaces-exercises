@@ -201,17 +201,47 @@ public class UserDaoJDBC implements CrudDAO<User> {
 
 		return user;
 	}
-	
+
 	// instantiate an UserProfile object used by createUserObj
-	private UserProfile createUserProfileObj(ResultSet rs) throws SQLException{		
-		
+	private UserProfile createUserProfileObj(ResultSet rs) throws SQLException {
+
 		UserProfile userProfile = new UserProfile();
-		
+
 		userProfile.setId(rs.getInt("profile_id"));
 		userProfile.setUserProfile(rs.getString("profile_info"));
-		
-		//System.out.println(userProfile);
-		
+
 		return userProfile;
+	}
+	
+	public User findByUserLoggin(String loggin) {
+		
+		User userObj = new User();
+		
+		String sql = "SELECT * FROM user WHERE login=?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loggin);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userObj = createUserObj(rs);
+				return userObj;
+			}
+			
+			return null;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(pstmt);
+			DB.closeResultSet(rs);
+		}		
 	}
 }

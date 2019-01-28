@@ -4,63 +4,66 @@ import java.util.List;
 
 import model.dao.CrudDAO;
 import model.dao.DaoFactory;
-import model.entities.User;
+import model.entities.Answers;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		CrudDAO<User> userDAO = DaoFactory.createUserDAO();
+		CrudDAO<Answers> answersDAO = DaoFactory.createAnswersDAO();
 
 		/*
 		 * TEST 1 - findAll()
 		 */
 		System.out.println("=== TEST 1 - findAll() ===");
-		List<User> userList = userDAO.findAll();
+		List<Answers> answersList = answersDAO.findAll();
 
-		for (User user : userList) {
-			System.out.println(user);
+		for (Answers answers : answersList) {
+			System.out.println(answers);
 		}
 		System.out.println("\n");
 
-		int objTest = 2;
+		int objTest = 1;
 
 		/*
 		 * TEST 2 - findById()
 		 */
 		System.out.println("=== TEST 2 - findById() ===");
-		System.out.println(userDAO.findById(objTest));
+		System.out.println(answersDAO.findById(objTest));
 		System.out.println("\n");
 
 		/*
 		 * TEST 3 - insert()
 		 */
 		System.out.println("=== TEST 3 - insert() ===");
-		User insObj = new User();
-		
-		insObj.setId(666);
-		insObj.setLogin("loggin4.log");
-		insObj.setPassword("logginPass");
-		insObj.setUserName("Loggin4 Log");
-		insObj.setEmail("loggin145@email.com");			
-		insObj.setUserProfile(DaoFactory.createUserProfileDAO().findById(5));;
-		insObj.setActive(true);
-		
+		Answers insObj = new Answers();
+
+		insObj.setId(3656);
+		insObj.setCorr1(true);
+		insObj.setAns1("Answer 1 test");
+		insObj.setCorr2(false);
+		insObj.setAns2("Answer 2 test");
+		insObj.setCorr3(false);
+		insObj.setAns3("Answer 3 test");
+		insObj.setUserLoggin(DaoFactory.createUserDAO().findById(2));
+
 		System.out.println("Obj Before: " + insObj + "\n");
-		userDAO.insert(insObj);
+		answersDAO.insert(insObj);
 		objTest = insObj.getId(); // For the next tests
 		System.out.println("Obj after: " + insObj + "\n");
-		System.out.println("Database after: " + userDAO.findById(insObj.getId()));
+		System.out.println("Database after: " + answersDAO.findById(objTest));
 		System.out.println("\n");
 
 		/*
 		 * TEST 4 - update()
 		 */
 		System.out.println("=== TEST 4 - update() ===");
-		User updateObj = userDAO.findById(objTest);
+		Answers updateObj = answersDAO.findById(objTest);
 		System.out.println("Before: " + updateObj + "\n");
-		updateObj.setUserName("THESE LINE HAS BEEN CHANGED");
-		userDAO.upDate(updateObj);
+		updateObj.setAns1("THESE LINE HAS BEEN CHANGED");
+		updateObj.setAns2("THESE LINE HAS BEEN CHANGED");
+		updateObj.setAns3("THESE LINE HAS BEEN CHANGED");
+		answersDAO.upDate(updateObj);
 		System.out.println("After: " + updateObj);
 		System.out.println("\n");
 
@@ -68,8 +71,8 @@ public class Program {
 		 * TEST 5 - deleteById()
 		 */
 		System.out.println("=== TEST 5 - deleteById() ===");
-		System.out.println(userDAO.findById(objTest));
-		userDAO.deleteById(objTest);
-		System.out.println("Database contains the object? " + userDAO.findById(objTest));
+		System.out.println(answersDAO.findById(objTest));
+		answersDAO.deleteById(objTest);
+		System.out.println("Database contains the object? " + answersDAO.findById(objTest));
 	}
 }
