@@ -34,7 +34,8 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	// A new Aircraft object has to be created before. Then use that as the parameter
+	// A new Aircraft object has to be created before. Then use that as the
+	// parameter
 	// for this method
 	public void insert(Aircraft obj) {
 
@@ -63,6 +64,9 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 				if (rs.next()) {
 					obj.setId(rs.getInt(1)); // Set a new object Id according to database
 				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unespected error when trying to set a new id for the aircraft!");
 			}
 
 		} catch (SQLException e) {
@@ -73,7 +77,8 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	// An new Aircraft object has to be created before. Then use that as the parameter
+	// An new Aircraft object has to be created before. Then use that as the
+	// parameter
 	// for this method
 	public void upDate(Aircraft obj) {
 

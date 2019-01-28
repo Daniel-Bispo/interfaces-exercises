@@ -15,6 +15,7 @@ import model.dao.impl.AtaDaoJDBC;
 import model.dao.impl.CourseEffectivityDaoJDBC;
 import model.dao.impl.CourseNameDaoJDBC;
 import model.dao.impl.EffectivityDaoJDBC;
+import model.dao.impl.QuestionDaoJDBC;
 import model.dao.impl.UserDaoJDBC;
 import model.dao.impl.UserProfileDaoJDBC;
 import model.entities.Aircraft;
@@ -23,6 +24,7 @@ import model.entities.Ata;
 import model.entities.CourseEffectivity;
 import model.entities.CourseName;
 import model.entities.Effectivity;
+import model.entities.Question;
 import model.entities.User;
 import model.entities.UserProfile;
 
@@ -62,5 +64,9 @@ public class DaoFactory {
 	
 	public static CrudDAO<Answers> createAnswersDAO() {
 		return new AnswersDaoJDBC(DB.getConnection());
+	}
+	
+	public static CrudDAO<Question> createQuestionDAO() {
+		return new QuestionDaoJDBC(DB.getConnection());
 	}
 }

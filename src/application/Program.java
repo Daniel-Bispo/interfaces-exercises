@@ -1,25 +1,26 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 
 import model.dao.CrudDAO;
 import model.dao.DaoFactory;
-import model.entities.Answers;
+import model.entities.Question;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		CrudDAO<Answers> answersDAO = DaoFactory.createAnswersDAO();
+		CrudDAO<Question> questionDAO = DaoFactory.createQuestionDAO();
 
 		/*
 		 * TEST 1 - findAll()
 		 */
 		System.out.println("=== TEST 1 - findAll() ===");
-		List<Answers> answersList = answersDAO.findAll();
+		List<Question> questionList = questionDAO.findAll();
 
-		for (Answers answers : answersList) {
-			System.out.println(answers);
+		for (Question question : questionList) {
+			System.out.println(question);
 		}
 		System.out.println("\n");
 
@@ -29,41 +30,46 @@ public class Program {
 		 * TEST 2 - findById()
 		 */
 		System.out.println("=== TEST 2 - findById() ===");
-		System.out.println(answersDAO.findById(objTest));
+		System.out.println(questionDAO.findById(objTest));
 		System.out.println("\n");
 
 		/*
 		 * TEST 3 - insert()
 		 */
 		System.out.println("=== TEST 3 - insert() ===");
-		Answers insObj = new Answers();
+		Question insObj = new Question();
 
-		insObj.setId(3656);
-		insObj.setCorr1(true);
-		insObj.setAns1("Answer 1 test");
-		insObj.setCorr2(false);
-		insObj.setAns2("Answer 2 test");
-		insObj.setCorr3(false);
-		insObj.setAns3("Answer 3 test");
-		insObj.setUserLoggin(DaoFactory.createUserDAO().findById(2));
+		insObj.setId(999);
+		insObj.setDifLevel(2);
+
+		insObj.setAta(DaoFactory.createAtaDAO().findById(4));
+		insObj.setAircraft(DaoFactory.createAircraftDAO().findById(3));
+		insObj.setCourseEffec(DaoFactory.createCourseEffectivityDAO().findById(2));
+		insObj.setEffectivity(DaoFactory.createEffectivityDAO().findById(4));
+
+		insObj.setQuestion("A QUESTION TEST");
+		insObj.setCreateDate(new Date().toString());
+		insObj.setUpdateDate(null);
+		insObj.setUserLoggin("loggin3.log");
+		insObj.setApprovedByLoggin("loggin1.log");
+		insObj.setActive(true);
 
 		System.out.println("Obj Before: " + insObj + "\n");
-		answersDAO.insert(insObj);
+		questionDAO.insert(insObj);
 		objTest = insObj.getId(); // For the next tests
 		System.out.println("Obj after: " + insObj + "\n");
-		System.out.println("Database after: " + answersDAO.findById(objTest));
+		System.out.println("Database after: " + questionDAO.findById(objTest));
 		System.out.println("\n");
 
 		/*
 		 * TEST 4 - update()
 		 */
 		System.out.println("=== TEST 4 - update() ===");
-		Answers updateObj = answersDAO.findById(objTest);
+		Question updateObj = questionDAO.findById(objTest);
 		System.out.println("Before: " + updateObj + "\n");
-		updateObj.setAns1("THESE LINE HAS BEEN CHANGED");
-		updateObj.setAns2("THESE LINE HAS BEEN CHANGED");
-		updateObj.setAns3("THESE LINE HAS BEEN CHANGED");
-		answersDAO.upDate(updateObj);
+		updateObj.setQuestion("THESE LINE HAS BEEN CHANGED");
+		updateObj.setAircraft(DaoFactory.createAircraftDAO().findById(5));
+		questionDAO.upDate(updateObj);
 		System.out.println("After: " + updateObj);
 		System.out.println("\n");
 
@@ -71,8 +77,8 @@ public class Program {
 		 * TEST 5 - deleteById()
 		 */
 		System.out.println("=== TEST 5 - deleteById() ===");
-		System.out.println(answersDAO.findById(objTest));
-		answersDAO.deleteById(objTest);
-		System.out.println("Database contains the object? " + answersDAO.findById(objTest));
+		System.out.println(questionDAO.findById(objTest));
+		questionDAO.deleteById(objTest);
+		System.out.println("Database contains the object? " + questionDAO.findById(objTest));
 	}
 }

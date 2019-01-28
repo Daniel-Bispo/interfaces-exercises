@@ -22,13 +22,13 @@ public class Answers {
 	private String ans3;
 	private String createDate;
 	private String updateDate;
-	private User userLoggin;
+	private String userLoggin;
 
 	public Answers() {
 	}
 
 	public Answers(int id, boolean corr1, String ans1, boolean corr2, String ans2, boolean corr3, String ans3,
-			String createDate, String updateDate, User userLoggin) {
+			String createDate, String updateDate, String userLoggin) {
 		this.id = id;
 		this.corr1 = corr1;
 		this.ans1 = ans1;
@@ -113,11 +113,11 @@ public class Answers {
 		this.updateDate = updateDate;
 	}
 
-	public User getUserLoggin() {
+	public String getUserLoggin() {
 		return userLoggin;
 	}
 
-	public void setUserLoggin(User userLoggin) {
+	public void setUserLoggin(String userLoggin) {
 		this.userLoggin = userLoggin;
 	}
 

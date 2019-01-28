@@ -67,6 +67,9 @@ public class UserDaoJDBC implements CrudDAO<User> {
 				if (rs.next()) {
 					obj.setId(rs.getInt(1)); // Set a new object Id according to database
 				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unespected error when trying to set a new id for the user!");
 			}
 
 		} catch (SQLException e) {
@@ -212,36 +215,35 @@ public class UserDaoJDBC implements CrudDAO<User> {
 
 		return userProfile;
 	}
-	
+
 	public User findByUserLoggin(String loggin) {
-		
+
 		User userObj = new User();
-		
+
 		String sql = "SELECT * FROM user WHERE login=?";
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, loggin);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				userObj = createUserObj(rs);
 				return userObj;
 			}
-			
+
 			return null;
-			
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(pstmt);
 			DB.closeResultSet(rs);
-		}		
+		}
 	}
 }

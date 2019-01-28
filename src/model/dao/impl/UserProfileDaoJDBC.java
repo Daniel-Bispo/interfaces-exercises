@@ -60,6 +60,9 @@ public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
 				if (rs.next()) {
 					obj.setId(rs.getInt(1)); // Set a new object Id according to database
 				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unespected error when trying to set a new id for the user profile!");
 			}
 
 		} catch (SQLException e) {

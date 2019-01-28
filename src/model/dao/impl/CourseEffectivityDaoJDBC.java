@@ -23,7 +23,8 @@ import model.dao.CrudDAO;
 import model.entities.CourseEffectivity;
 
 /**
- * Implementation of CrudDAO for CourseEffectivity entity. It uses JDBC connection only.
+ * Implementation of CrudDAO for CourseEffectivity entity. It uses JDBC
+ * connection only.
  */
 public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 
@@ -34,7 +35,8 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	}
 
 	@Override
-	// A new CourseEffectivity object has to be created before. Then use that as the parameter
+	// A new CourseEffectivity object has to be created before. Then use that as the
+	// parameter
 	// for this method
 	public void insert(CourseEffectivity obj) {
 
@@ -63,6 +65,9 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 				if (rs.next()) {
 					obj.setId(rs.getInt(1)); // Set a new object Id according to database
 				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unespected error when trying to set a new id for the course effectivity!");
 			}
 
 		} catch (SQLException e) {
@@ -73,7 +78,8 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	}
 
 	@Override
-	// An new CourseEffectivity object has to be created before. Then use that as the parameter
+	// An new CourseEffectivity object has to be created before. Then use that as
+	// the parameter
 	// for this method
 	public void upDate(CourseEffectivity obj) {
 

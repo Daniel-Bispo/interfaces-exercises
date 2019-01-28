@@ -20,7 +20,6 @@ import db.DB;
 import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Answers;
-import model.entities.User;
 
 /**
  * Implementation of CrudDAO for AnswersDaoJDBC entity. It uses JDBC connection
@@ -59,9 +58,9 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 			pstmt.setString(5, obj.getAns2());
 			pstmt.setString(6, String.valueOf(obj.isCorr3()));
 			pstmt.setString(7, obj.getAns3());
-			pstmt.setString(8, new Date().toString());
-			pstmt.setString(9, null);
-			pstmt.setString(10, obj.getUserLoggin().getLogin());
+			pstmt.setString(8, new Date().toString()); // Set to today always
+			pstmt.setString(9, obj.getUpdateDate());
+			pstmt.setString(10, obj.getUserLoggin());
 
 			pstmt.executeUpdate();
 
@@ -92,8 +91,8 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 			pstmt.setString(5, String.valueOf(obj.isCorr3()));
 			pstmt.setString(6, obj.getAns3());
 			pstmt.setString(7, obj.getCreateDate().toString());
-			pstmt.setString(8, new Date().toString());
-			pstmt.setString(9, obj.getUserLoggin().getLogin());
+			pstmt.setString(8, new Date().toString()); // Set to today always
+			pstmt.setString(9, obj.getUserLoggin());
 			pstmt.setInt(10, obj.getId());
 
 			pstmt.executeUpdate();
@@ -199,18 +198,8 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 		answers.setAns3(rs.getString("ans_3"));
 		answers.setCreateDate(rs.getString("create_date"));
 		answers.setUpdateDate(rs.getString("update_date"));
-		answers.setUserLoggin(createUserProfileObj(rs));
+		answers.setUserLoggin(rs.getString("user_loggin"));
 
 		return answers;
-	}
-
-	// instantiate an User object used by createAnswersObj
-	private User createUserProfileObj(ResultSet rs) throws SQLException {
-
-		String loggin = rs.getString("user_loggin");
-
-		User user = new UserDaoJDBC(conn).findByUserLoggin(loggin);
-
-		return user;
 	}
 }

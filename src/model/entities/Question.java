@@ -8,8 +8,6 @@
  */
 package model.entities;
 
-import java.util.Date;
-
 /**
 *
 *
@@ -18,22 +16,23 @@ public class Question {
 
 	private int id;
 	private int difLevel;
+	private boolean active;
 	private String question;
-	private Date createDate;
-	private Date updateDate;
+	private String createDate;
+	private String updateDate;
 	private String userLoggin;
 	private String approvedByLoggin;
-	private boolean active;
-	
+
 	private Answers answers;
 	private Ata ata;
 	private Aircraft aircraft;
 	private CourseEffectivity courseEffec;
 	private Effectivity effectivity;
-	
-	public Question() {}
 
-	public Question(int id, int difLevel, String question, Date createDate, Date updateDate, String userLoggin,
+	public Question() {
+	}
+
+	public Question(int id, int difLevel, String question, String createDate, String updateDate, String userLoggin,
 			String approvedByLoggin, boolean active, Answers answers, Ata ata, Aircraft aircraft,
 			CourseEffectivity courseEffec, Effectivity effectivity) {
 		this.id = id;
@@ -75,19 +74,19 @@ public class Question {
 		this.question = question;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -187,5 +186,13 @@ public class Question {
 		} else if (!question.equals(other.question))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", difLevel=" + difLevel + ", question=" + question + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + ", userLoggin=" + userLoggin + ", approvedByLoggin=" + approvedByLoggin
+				+ ", active=" + active + ", answers=" + answers + ", ata=" + ata + ", aircraft=" + aircraft
+				+ ", courseEffec=" + courseEffec + ", effectivity=" + effectivity + "]";
 	}
 }
