@@ -39,11 +39,11 @@ public class Program {
 		User insObj = new User();
 		
 		insObj.setId(666);
-		insObj.setLogin("loggin5.log");
+		insObj.setLogin("loggin4.log");
 		insObj.setPassword("logginPass");
-		insObj.setUsername("Loggin5 Log");
-		insObj.setEmail("loggin5@email.com");		
-		insObj.setUserProfile(DaoFactory.createUserProfileDAO().findById(3).getId());;
+		insObj.setUserName("Loggin4 Log");
+		insObj.setEmail("loggin145@email.com");			
+		insObj.setUserProfile(DaoFactory.createUserProfileDAO().findById(5));;
 		insObj.setActive(true);
 		
 		System.out.println("Obj Before: " + insObj + "\n");
@@ -59,7 +59,7 @@ public class Program {
 		System.out.println("=== TEST 4 - update() ===");
 		User updateObj = userDAO.findById(objTest);
 		System.out.println("Before: " + updateObj + "\n");
-		updateObj.setUsername("THESE LINE HAS BEEN CHANGED");
+		updateObj.setUserName("THESE LINE HAS BEEN CHANGED");
 		userDAO.upDate(updateObj);
 		System.out.println("After: " + updateObj);
 		System.out.println("\n");

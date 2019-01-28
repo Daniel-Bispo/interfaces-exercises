@@ -9,27 +9,28 @@
 package model.entities;
 
 /**
-*
-*
-*/
+ * userProfile field is a key on the database table, that's why it receives an
+ * UserProfile object
+ */
 public class User {
 
 	private int id;
 	private String login;
 	private String password;
-	private String username;
+	private String userName;
 	private String email;
-	private int userProfile;
+	private UserProfile userProfile;
 	private boolean active;
 
 	public User() {
 	}
 
-	public User(int id, String login, String password, String username, String email, int userProfile, boolean active) {
+	public User(int id, String login, String password, String userName, String email, UserProfile userProfile,
+			boolean active) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
-		this.username = username;
+		this.userName = userName;
 		this.email = email;
 		this.active = active;
 		this.userProfile = userProfile;
@@ -59,12 +60,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -83,17 +84,17 @@ public class User {
 		this.active = active;
 	}
 
-	public int getUserProfile() {
+	public UserProfile getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(int userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", username=" + username + ", email="
-				+ email +  ", userProfile=" + userProfile + ", active=" + active  + "]";
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", username=" + userName + ", email="
+				+ email + ", userProfile=" + userProfile + ", active=" + active + "]";
 	}
 }

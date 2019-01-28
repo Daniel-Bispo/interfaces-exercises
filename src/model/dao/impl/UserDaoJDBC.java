@@ -20,6 +20,7 @@ import db.DB;
 import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.User;
+import model.entities.UserProfile;
 
 /**
  * Implementation of CrudDAO for UserDaoJDBC entity. It uses JDBC connection
@@ -38,7 +39,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	// parameter for this method.
 	public void insert(User obj) {
 
-		String sql = "INSERT INTO users (login, password, user_name, email, user_profile, active) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO user (login, password, user_name, email, profile_id, profile_info, active) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement pstmt = null;
 
@@ -51,10 +52,11 @@ public class UserDaoJDBC implements CrudDAO<User> {
 			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, obj.getLogin());
 			pstmt.setString(2, obj.getPassword());
-			pstmt.setString(3, obj.getUsername());
+			pstmt.setString(3, obj.getUserName());
 			pstmt.setString(4, obj.getEmail());
-			pstmt.setInt(5, obj.getUserProfile());
-			pstmt.setBoolean(6, obj.isActive());
+			pstmt.setInt(5, obj.getUserProfile().getId());
+			pstmt.setString(6, obj.getUserProfile().getUserProfile());
+			pstmt.setBoolean(7, obj.isActive());
 
 			// Get the amount of the inserted row
 			int insRows = pstmt.executeUpdate();
@@ -79,7 +81,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	// parameter for this method
 	public void upDate(User obj) {
 
-		String sql = "UPDATE users SET login=?, password=?, user_name=?, email=?, user_profile=?, active=? WHERE id=?";
+		String sql = "UPDATE user SET login=?, password=?, user_name=?, email=?, profile_id=?, profile_info=?, active=? WHERE id=?";
 
 		PreparedStatement pstmt = null;
 
@@ -88,11 +90,12 @@ public class UserDaoJDBC implements CrudDAO<User> {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, obj.getLogin());
 			pstmt.setString(2, obj.getPassword());
-			pstmt.setString(3, obj.getUsername());
+			pstmt.setString(3, obj.getUserName());
 			pstmt.setString(4, obj.getEmail());
-			pstmt.setInt(5, obj.getUserProfile());
-			pstmt.setBoolean(6, obj.isActive());
-			pstmt.setInt(7, obj.getId());
+			pstmt.setInt(5, obj.getUserProfile().getId());
+			pstmt.setString(6, obj.getUserProfile().getUserProfile());
+			pstmt.setBoolean(7, obj.isActive());
+			pstmt.setInt(8, obj.getId());
 
 			pstmt.executeUpdate();
 
@@ -106,7 +109,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	@Override
 	public void deleteById(int id) {
 
-		String sql = "DELETE FROM users WHERE id=?";
+		String sql = "DELETE FROM user WHERE id=?";
 
 		PreparedStatement pstmt = null;
 
@@ -126,7 +129,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	@Override
 	public User findById(int id) {
 
-		String sql = "SELECT * FROM users WHERE id=?";
+		String sql = "SELECT * FROM user WHERE id=?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -158,7 +161,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 		// A list which contains all User's elements read from database
 		List<User> userList = new ArrayList<>();
 
-		String sql = "SELECT * FROM users ORDER BY user_name";
+		String sql = "SELECT * FROM user ORDER BY user_name";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -191,11 +194,24 @@ public class UserDaoJDBC implements CrudDAO<User> {
 		user.setId(rs.getInt("id"));
 		user.setLogin(rs.getString("login"));
 		user.setPassword(rs.getString("password"));
-		user.setUsername(rs.getString("user_name"));
+		user.setUserName(rs.getString("user_name"));
 		user.setEmail(rs.getString("email"));
-		user.setUserProfile(rs.getInt("user_profile"));
+		user.setUserProfile(createUserProfileObj(rs));
 		user.setActive(rs.getBoolean("active"));
 
 		return user;
+	}
+	
+	// instantiate an UserProfile object used by createUserObj
+	private UserProfile createUserProfileObj(ResultSet rs) throws SQLException{		
+		
+		UserProfile userProfile = new UserProfile();
+		
+		userProfile.setId(rs.getInt("profile_id"));
+		userProfile.setUserProfile(rs.getString("profile_info"));
+		
+		//System.out.println(userProfile);
+		
+		return userProfile;
 	}
 }
