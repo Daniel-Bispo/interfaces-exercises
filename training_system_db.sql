@@ -1,0 +1,1 @@
+SELECT * FROM questions WHERE  ata=28 AND aircraft=4 AND dif_level=3 AND course_effec=3 AND effectivity=1 AND active='true' ORDER BY ata
