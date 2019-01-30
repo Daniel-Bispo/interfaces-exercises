@@ -12,7 +12,7 @@ package model.entities;
  * Information about engine type, special operation courses or specific courses
  * It means how a course is applicable
  */
-public class CourseEffectivity {
+public final class CourseEffectivity {
 
 	private int id;
 	private String courseEffecInfo;

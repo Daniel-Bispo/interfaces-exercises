@@ -12,7 +12,7 @@ package model.entities;
 *
 *
 */
-public class Effectivity {
+public final class Effectivity {
 
 	private int id;
 	private String effecInfo;

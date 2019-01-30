@@ -12,7 +12,7 @@ package model.entities;
 *
 *
 */
-public class Ata {
+public final class Ata {
 	
 	private int id;
 	private String ataNumber;

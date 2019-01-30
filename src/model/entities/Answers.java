@@ -11,7 +11,7 @@ package model.entities;
 /**
  * The fields coor_1, corr_2 and corr_3 store which answer is correct
  */
-public class Answers {
+public final class Answers {
 
 	private int id;
 	private boolean corr1;

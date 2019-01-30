@@ -20,7 +20,6 @@ import db.DB;
 import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.User;
-import model.entities.UserProfile;
 
 /**
  * Implementation of CrudDAO for UserDaoJDBC entity. It uses JDBC connection
@@ -39,7 +38,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	// parameter for this method.
 	public void insert(User obj) {
 
-		String sql = "INSERT INTO user (login, password, user_name, email, profile_id, profile_info, active) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO user (login, password, user_name, email, profile_id, active) VALUES (?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement pstmt = null;
 
@@ -54,9 +53,8 @@ public class UserDaoJDBC implements CrudDAO<User> {
 			pstmt.setString(2, obj.getPassword());
 			pstmt.setString(3, obj.getUserName());
 			pstmt.setString(4, obj.getEmail());
-			pstmt.setInt(5, obj.getUserProfile().getId());
-			pstmt.setString(6, obj.getUserProfile().getUserProfile());
-			pstmt.setBoolean(7, obj.isActive());
+			pstmt.setInt(5, obj.getUserProfile());
+			pstmt.setBoolean(6, obj.isActive());
 
 			// Get the amount of the inserted row
 			int insRows = pstmt.executeUpdate();
@@ -84,7 +82,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	// parameter for this method
 	public void upDate(User obj) {
 
-		String sql = "UPDATE user SET login=?, password=?, user_name=?, email=?, profile_id=?, profile_info=?, active=? WHERE id=?";
+		String sql = "UPDATE user SET login=?, password=?, user_name=?, email=?, profile_id=?, active=? WHERE id=?";
 
 		PreparedStatement pstmt = null;
 
@@ -95,10 +93,9 @@ public class UserDaoJDBC implements CrudDAO<User> {
 			pstmt.setString(2, obj.getPassword());
 			pstmt.setString(3, obj.getUserName());
 			pstmt.setString(4, obj.getEmail());
-			pstmt.setInt(5, obj.getUserProfile().getId());
-			pstmt.setString(6, obj.getUserProfile().getUserProfile());
-			pstmt.setBoolean(7, obj.isActive());
-			pstmt.setInt(8, obj.getId());
+			pstmt.setInt(5, obj.getUserProfile());
+			pstmt.setBoolean(6, obj.isActive());
+			pstmt.setInt(7, obj.getId());
 
 			pstmt.executeUpdate();
 
@@ -189,7 +186,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 		}
 	}
 
-	// Instantiate an User object used by findAll()
+	// Instantiate an User object used by findAll() and findById()
 	private User createUserObj(ResultSet rs) throws SQLException {
 
 		User user = new User();
@@ -199,51 +196,8 @@ public class UserDaoJDBC implements CrudDAO<User> {
 		user.setPassword(rs.getString("password"));
 		user.setUserName(rs.getString("user_name"));
 		user.setEmail(rs.getString("email"));
-		user.setUserProfile(createUserProfileObj(rs));
 		user.setActive(rs.getBoolean("active"));
 
 		return user;
-	}
-
-	// instantiate an UserProfile object used by createUserObj
-	private UserProfile createUserProfileObj(ResultSet rs) throws SQLException {
-
-		UserProfile userProfile = new UserProfile();
-
-		userProfile.setId(rs.getInt("profile_id"));
-		userProfile.setUserProfile(rs.getString("profile_info"));
-
-		return userProfile;
-	}
-
-	public User findByUserLoggin(String loggin) {
-
-		User userObj = new User();
-
-		String sql = "SELECT * FROM user WHERE login=?";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, loggin);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				userObj = createUserObj(rs);
-				return userObj;
-			}
-
-			return null;
-
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closeStatement(pstmt);
-			DB.closeResultSet(rs);
-		}
 	}
 }

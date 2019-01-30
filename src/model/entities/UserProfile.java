@@ -12,7 +12,7 @@ package model.entities;
 *
 *
 */
-public class UserProfile {
+public final class UserProfile {
 	
 	private int id;
 	private String userProfile;

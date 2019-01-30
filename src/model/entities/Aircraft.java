@@ -12,7 +12,7 @@ package model.entities;
 *
 *
 */
-public class Aircraft {
+public final class Aircraft {
 
 	private int id;
 	private String aircraft;

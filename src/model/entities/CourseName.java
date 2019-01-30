@@ -8,7 +8,7 @@
  */
 package model.entities;
 
-public class CourseName {
+public final class CourseName {
 
 	private int id;
 	private String course;

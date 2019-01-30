@@ -12,20 +12,20 @@ package model.entities;
  * userProfile field is a key on the database table, that's why it receives an
  * UserProfile object
  */
-public class User {
+public final class User {
 
 	private int id;
 	private String login;
 	private String password;
 	private String userName;
 	private String email;
-	private UserProfile userProfile;
+	private int userProfile;
 	private boolean active;
 
 	public User() {
 	}
 
-	public User(int id, String login, String password, String userName, String email, UserProfile userProfile,
+	public User(int id, String login, String password, String userName, String email, int userProfile,
 			boolean active) {
 		this.id = id;
 		this.login = login;
@@ -84,11 +84,11 @@ public class User {
 		this.active = active;
 	}
 
-	public UserProfile getUserProfile() {
+	public int getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
+	public void setUserProfile(int userProfile) {
 		this.userProfile = userProfile;
 	}
 
