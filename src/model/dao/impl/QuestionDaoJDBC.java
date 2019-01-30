@@ -18,15 +18,14 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import model.dao.CrudDAO;
-import model.dao.DaoFactory;
+import model.dao.CrudParametersDAO;
 import model.entities.Question;
 
 /**
- * Implementation of CrudDAO for QuestionDaoJDBC entity. It uses JDBC connection
- * only.
+ * Implementation of CrudParametersDAO for QuestionDaoJDBC entity. It uses JDBC
+ * connection only and cannot be extended for safe.
  */
-public class QuestionDaoJDBC implements CrudDAO<Question> {
+public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 
 	private Connection conn;
 
@@ -53,11 +52,11 @@ public class QuestionDaoJDBC implements CrudDAO<Question> {
 			 * field
 			 */
 
-			pstmt.setInt(1, obj.getAta().getId());
-			pstmt.setInt(2, obj.getAircraft().getId());
+			pstmt.setInt(1, obj.getAta());
+			pstmt.setInt(2, obj.getAircraft());
 			pstmt.setInt(3, obj.getDifLevel());
-			pstmt.setInt(4, obj.getCourseEffec().getId());
-			pstmt.setInt(5, obj.getEffectivity().getId());
+			pstmt.setInt(4, obj.getCourseEffec());
+			pstmt.setInt(5, obj.getEffectivity());
 			pstmt.setString(6, obj.getQuestion());
 			pstmt.setString(7, new Date().toString()); // Set to today always
 			pstmt.setString(8, obj.getUpdateDate());
@@ -100,11 +99,11 @@ public class QuestionDaoJDBC implements CrudDAO<Question> {
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, obj.getAta().getId());
-			pstmt.setInt(2, obj.getAircraft().getId());
+			pstmt.setInt(1, obj.getAta());
+			pstmt.setInt(2, obj.getAircraft());
 			pstmt.setInt(3, obj.getDifLevel());
-			pstmt.setInt(4, obj.getCourseEffec().getId());
-			pstmt.setInt(5, obj.getEffectivity().getId());
+			pstmt.setInt(4, obj.getCourseEffec());
+			pstmt.setInt(5, obj.getEffectivity());
 			pstmt.setString(6, obj.getQuestion());
 			pstmt.setString(7, obj.getCreateDate());
 			pstmt.setString(8, new Date().toString()); // Set to today always
@@ -202,25 +201,66 @@ public class QuestionDaoJDBC implements CrudDAO<Question> {
 		}
 	}
 
-	// Instantiate an Question object used by findAll() and findById()
+	@Override
+	public List<Question> findByParameters(Question obj) {
+
+		List<Question> foundQuestionsList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM questions WHERE";
+
+		// This block checks which parameter is set and completes the sql string
+		sql += obj.getAta() != 0 ? (" ata=" + obj.getAta()) : "";
+		sql += obj.getAircraft() != 0 ? (" AND aircraft=" + obj.getAircraft()) : "";
+		sql += obj.getDifLevel() != 0 ? (" AND dif_level=" + obj.getDifLevel()) : "";
+		sql += obj.getCourseEffec() != 0 ? (" AND course_effec=" + obj.getCourseEffec()) : "";
+		sql += obj.getEffectivity() != 0 ? (" AND effectivity=" + obj.getEffectivity()) : "";
+		sql += obj.getCreateDate() != null ? (" AND create_date=" + obj.getCreateDate()) : "";
+		sql += obj.getUpdateDate() != null ? (" AND update_date=" + obj.getUpdateDate()) : "";
+		sql += obj.getUserLoggin() != null ? (" AND user_loggin=" + obj.getUserLoggin()) : "";
+		sql += obj.getApprovedByLoggin() != null ? (" AND approved_by_loggin=" + obj.getApprovedByLoggin()) : "";
+
+		if (sql.length() > 30) {
+			sql += " AND active='" + obj.isActive() + "'";
+		} else {
+			/*
+			 * If obj has no other parameter it returns all questions according to active
+			 * parameter which default value is true
+			 */
+			sql = "SELECT * FROM questions WHERE active='" + obj.isActive() + "'";
+		}
+
+		sql += obj.getAta() != 0 ? " ORDER BY ata" : "";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				foundQuestionsList.add(createQuestionObj(rs));
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pstmt);
+			DB.closeResultSet(rs);
+		}
+
+		return foundQuestionsList;
+	}
+
+	/*
+	 * Instantiate a Question object from a ResulSet which is used by findAll() and
+	 * findById()
+	 */
 	private Question createQuestionObj(ResultSet rs) throws SQLException {
 
-		Question question = new Question();
-
-		question.setId(rs.getInt("id"));
-		question.setDifLevel(rs.getInt("dif_level"));
-
-		question.setAta(DaoFactory.createAtaDAO().findById(rs.getInt("ata")));
-		question.setAircraft(DaoFactory.createAircraftDAO().findById(rs.getInt("aircraft")));
-		question.setCourseEffec(DaoFactory.createCourseEffectivityDAO().findById(rs.getInt("course_effec")));
-		question.setEffectivity(DaoFactory.createEffectivityDAO().findById(rs.getInt("effectivity")));
-
-		question.setQuestion(rs.getString("question"));
-		question.setCreateDate(rs.getString("create_date"));
-		question.setUpdateDate(rs.getString("update_date"));
-		question.setUserLoggin(rs.getString("user_loggin"));
-		question.setApprovedByLoggin(rs.getString("approved_by_loggin"));
-		question.setActive(Boolean.valueOf(rs.getString("active")));
+		Question question = new Question(rs.getInt("id"), rs.getInt("ata"), rs.getInt("aircraft"),
+				rs.getInt("dif_level"), rs.getInt("course_effec"), rs.getInt("effectivity"), rs.getString("question"),
+				rs.getString("create_date"), rs.getString("update_date"), rs.getString("user_loggin"),
+				rs.getString("approved_by_loggin"), Boolean.valueOf(rs.getString("active")));
 
 		return question;
 	}

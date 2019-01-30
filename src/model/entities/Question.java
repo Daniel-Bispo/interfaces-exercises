@@ -9,45 +9,41 @@
 package model.entities;
 
 /**
-*
-*
-*/
-public class Question {
+ *
+ * The class and fields are final to ensure that class can't be mutable
+ */
+public final class Question {
 
 	private int id;
+	private int ata;
+	private int aircraft;
 	private int difLevel;
-	private boolean active;
+	private int courseEffec;
+	private int effectivity;
 	private String question;
 	private String createDate;
 	private String updateDate;
 	private String userLoggin;
 	private String approvedByLoggin;
-
-	private Answers answers;
-	private Ata ata;
-	private Aircraft aircraft;
-	private CourseEffectivity courseEffec;
-	private Effectivity effectivity;
+	private boolean active = true;
 
 	public Question() {
 	}
 
-	public Question(int id, int difLevel, String question, String createDate, String updateDate, String userLoggin,
-			String approvedByLoggin, boolean active, Answers answers, Ata ata, Aircraft aircraft,
-			CourseEffectivity courseEffec, Effectivity effectivity) {
+	public Question(int id, int ata, int aircraft, int difLevel, int courseEffec, int effectivity, String question,
+			String createDate, String updateDate, String userLoggin, String approvedByLoggin, boolean active) {
 		this.id = id;
+		this.ata = ata;
+		this.aircraft = aircraft;
 		this.difLevel = difLevel;
+		this.courseEffec = courseEffec;
+		this.effectivity = effectivity;
 		this.question = question;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.userLoggin = userLoggin;
 		this.approvedByLoggin = approvedByLoggin;
 		this.active = active;
-		this.answers = answers;
-		this.ata = ata;
-		this.aircraft = aircraft;
-		this.courseEffec = courseEffec;
-		this.effectivity = effectivity;
 	}
 
 	public int getId() {
@@ -58,12 +54,44 @@ public class Question {
 		this.id = id;
 	}
 
+	public int getAta() {
+		return ata;
+	}
+
+	public void setAta(int ata) {
+		this.ata = ata;
+	}
+
+	public int getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(int aircraft) {
+		this.aircraft = aircraft;
+	}
+
 	public int getDifLevel() {
 		return difLevel;
 	}
 
 	public void setDifLevel(int difLevel) {
 		this.difLevel = difLevel;
+	}
+
+	public int getCourseEffec() {
+		return courseEffec;
+	}
+
+	public void setCourseEffec(int courseEffec) {
+		this.courseEffec = courseEffec;
+	}
+
+	public int getEffectivity() {
+		return effectivity;
+	}
+
+	public void setEffectivity(int effectivity) {
+		this.effectivity = effectivity;
 	}
 
 	public String getQuestion() {
@@ -114,53 +142,22 @@ public class Question {
 		this.active = active;
 	}
 
-	public Answers getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(Answers answers) {
-		this.answers = answers;
-	}
-
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
-	}
-
-	public Aircraft getAircraft() {
-		return aircraft;
-	}
-
-	public void setAircraft(Aircraft aircraft) {
-		this.aircraft = aircraft;
-	}
-
-	public CourseEffectivity getCourseEffec() {
-		return courseEffec;
-	}
-
-	public void setCourseEffec(CourseEffectivity courseEffec) {
-		this.courseEffec = courseEffec;
-	}
-
-	public Effectivity getEffectivity() {
-		return effectivity;
-	}
-
-	public void setEffectivity(Effectivity effectivity) {
-		this.effectivity = effectivity;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ata == null) ? 0 : ata.hashCode());
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + aircraft;
+		result = prime * result + ((approvedByLoggin == null) ? 0 : approvedByLoggin.hashCode());
+		result = prime * result + ata;
+		result = prime * result + courseEffec;
+		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
+		result = prime * result + difLevel;
+		result = prime * result + effectivity;
 		result = prime * result + id;
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
+		result = prime * result + ((updateDate == null) ? 0 : updateDate.hashCode());
+		result = prime * result + ((userLoggin == null) ? 0 : userLoggin.hashCode());
 		return result;
 	}
 
@@ -173,10 +170,27 @@ public class Question {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
-		if (ata == null) {
-			if (other.ata != null)
+		if (active != other.active)
+			return false;
+		if (aircraft != other.aircraft)
+			return false;
+		if (approvedByLoggin == null) {
+			if (other.approvedByLoggin != null)
 				return false;
-		} else if (!ata.equals(other.ata))
+		} else if (!approvedByLoggin.equals(other.approvedByLoggin))
+			return false;
+		if (ata != other.ata)
+			return false;
+		if (courseEffec != other.courseEffec)
+			return false;
+		if (createDate == null) {
+			if (other.createDate != null)
+				return false;
+		} else if (!createDate.equals(other.createDate))
+			return false;
+		if (difLevel != other.difLevel)
+			return false;
+		if (effectivity != other.effectivity)
 			return false;
 		if (id != other.id)
 			return false;
@@ -185,14 +199,24 @@ public class Question {
 				return false;
 		} else if (!question.equals(other.question))
 			return false;
+		if (updateDate == null) {
+			if (other.updateDate != null)
+				return false;
+		} else if (!updateDate.equals(other.updateDate))
+			return false;
+		if (userLoggin == null) {
+			if (other.userLoggin != null)
+				return false;
+		} else if (!userLoggin.equals(other.userLoggin))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", difLevel=" + difLevel + ", question=" + question + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + ", userLoggin=" + userLoggin + ", approvedByLoggin=" + approvedByLoggin
-				+ ", active=" + active + ", answers=" + answers + ", ata=" + ata + ", aircraft=" + aircraft
-				+ ", courseEffec=" + courseEffec + ", effectivity=" + effectivity + "]";
+		return "Question [id=" + id + ", ata=" + ata + ", aircraft=" + aircraft + ", difLevel=" + difLevel
+				+ ", courseEffec=" + courseEffec + ", effectivity=" + effectivity + ", question=" + question
+				+ ", createDate=" + createDate + ", updateDate=" + updateDate + ", userLoggin=" + userLoggin
+				+ ", approvedByLoggin=" + approvedByLoggin + ", active=" + active + "]";
 	}
 }

@@ -66,7 +66,7 @@ public class DaoFactory {
 		return new AnswersDaoJDBC(DB.getConnection());
 	}
 	
-	public static CrudDAO<Question> createQuestionDAO() {
+	public static CrudParametersDAO<Question> createQuestionDAO() {
 		return new QuestionDaoJDBC(DB.getConnection());
 	}
 }

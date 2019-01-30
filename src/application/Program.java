@@ -1,9 +1,8 @@
 package application;
 
-import java.util.Date;
 import java.util.List;
 
-import model.dao.CrudDAO;
+import model.dao.CrudParametersDAO;
 import model.dao.DaoFactory;
 import model.entities.Question;
 
@@ -11,7 +10,7 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		CrudDAO<Question> questionDAO = DaoFactory.createQuestionDAO();
+		CrudParametersDAO<Question> questionDAO = DaoFactory.createQuestionDAO();
 
 		/*
 		 * TEST 1 - findAll()
@@ -40,19 +39,16 @@ public class Program {
 		Question insObj = new Question();
 
 		insObj.setId(999);
+		insObj.setAta(DaoFactory.createAtaDAO().findById(4).getId());
+		insObj.setAircraft(DaoFactory.createAircraftDAO().findById(3).getId());
 		insObj.setDifLevel(2);
-
-		insObj.setAta(DaoFactory.createAtaDAO().findById(4));
-		insObj.setAircraft(DaoFactory.createAircraftDAO().findById(3));
-		insObj.setCourseEffec(DaoFactory.createCourseEffectivityDAO().findById(2));
-		insObj.setEffectivity(DaoFactory.createEffectivityDAO().findById(4));
-
+		insObj.setCourseEffec(DaoFactory.createCourseEffectivityDAO().findById(2).getId());
+		insObj.setEffectivity(DaoFactory.createEffectivityDAO().findById(4).getId());
 		insObj.setQuestion("A QUESTION TEST");
-		insObj.setCreateDate(new Date().toString());
+		insObj.setCreateDate(null);
 		insObj.setUpdateDate(null);
 		insObj.setUserLoggin("loggin3.log");
 		insObj.setApprovedByLoggin("loggin1.log");
-		insObj.setActive(true);
 
 		System.out.println("Obj Before: " + insObj + "\n");
 		questionDAO.insert(insObj);
@@ -68,7 +64,7 @@ public class Program {
 		Question updateObj = questionDAO.findById(objTest);
 		System.out.println("Before: " + updateObj + "\n");
 		updateObj.setQuestion("THESE LINE HAS BEEN CHANGED");
-		updateObj.setAircraft(DaoFactory.createAircraftDAO().findById(5));
+		updateObj.setAircraft(DaoFactory.createAircraftDAO().findById(5).getId());
 		questionDAO.upDate(updateObj);
 		System.out.println("After: " + updateObj);
 		System.out.println("\n");
@@ -80,5 +76,81 @@ public class Program {
 		System.out.println(questionDAO.findById(objTest));
 		questionDAO.deleteById(objTest);
 		System.out.println("Database contains the object? " + questionDAO.findById(objTest));
+		
+		/*
+		 * TEST 6 - findByParameters()
+		 */
+		System.out.println("=== TEST 6 - findByParameters() ===\n");
+		Question pQues;
+		List<Question> foundQuestions;
+		
+		System.out.println("--- No parameters ----\n");
+		pQues = new Question();
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}
+		
+		System.out.println("\n--- By Ata ----\n");
+		pQues = new Question();
+		pQues.setAta(24);	
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}
+		
+		System.out.println("\n--- By Ata and Aircraft ----\n");
+		pQues = new Question();
+		pQues.setAta(24);
+		pQues.setAircraft(3);	
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}
+		
+		System.out.println("\n--- By Ata, Aircraft and DifLevel ----\n");
+		pQues = new Question();
+		pQues.setAta(24);
+		pQues.setAircraft(3);
+		pQues.setDifLevel(3);	
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}
+		
+		System.out.println("\n--- By Ata, Aircraft, DifLevel and CourseEffec ----\n");
+		pQues = new Question();
+		pQues.setAta(24);
+		pQues.setAircraft(3);
+		pQues.setDifLevel(3);
+		pQues.setCourseEffec(2);		
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}		
+		
+		System.out.println("\n--- By Ata, Aircraft, DifLevel, CourseEffec and Effectivity ----\n");
+		pQues = new Question();
+		pQues.setAta(24);
+		pQues.setAircraft(3);
+		pQues.setDifLevel(3);
+		pQues.setCourseEffec(2);
+		pQues.setEffectivity(1);		
+		
+		foundQuestions = questionDAO.findByParameters(pQues);		
+				
+		for(Question question : foundQuestions) {
+			System.out.println(question);
+		}
 	}
 }
