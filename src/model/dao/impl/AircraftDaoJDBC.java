@@ -24,6 +24,7 @@ import model.entities.Aircraft;
 
 /**
  * Implementation of CrudDAO for Aircraft entity. It uses JDBC connection only.
+ * @param test
  */
 public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 
@@ -34,9 +35,12 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	// A new Aircraft object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	/**
+     * Adds a new {@code Aircraft} into the database.
+     *
+     * @param  obj
+     *         The {@code Aircraft} fields
+     */
 	public void insert(Aircraft obj) {
 
 		String sql = "INSERT INTO aircraft (aircraft, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?)";

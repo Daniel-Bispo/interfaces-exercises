@@ -15,7 +15,7 @@ import java.util.List;
  * CrudDAO's flexibility. Insert, update and delete any type of object.
  */
 public interface CrudDAO<T> {
-
+	
 	void insert(T obj);
 
 	void upDate(T obj);
