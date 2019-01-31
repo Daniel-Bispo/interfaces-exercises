@@ -2,8 +2,8 @@
  * UserDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -21,10 +21,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.User;
 
-/**
- * Implementation of CrudDAO for UserDaoJDBC entity. It uses JDBC connection
- * only.
- */
 public class UserDaoJDBC implements CrudDAO<User> {
 
 	private Connection conn;
@@ -78,7 +74,7 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	}
 
 	@Override
-	// An new User object has to be created before. Then use that as the
+	// A new User object has to be created before. Then use that as the
 	// parameter for this method
 	public void upDate(User obj) {
 
@@ -127,6 +123,9 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	}
 
 	@Override
+	/**
+	 * Returns an User object.
+	 */
 	public User findById(int id) {
 
 		String sql = "SELECT * FROM user WHERE id=?";
@@ -156,9 +155,11 @@ public class UserDaoJDBC implements CrudDAO<User> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<User>} containing all User objects in database.
+	 */
 	public List<User> findAll() {
 
-		// A list which contains all User's elements read from database
 		List<User> userList = new ArrayList<>();
 
 		String sql = "SELECT * FROM user ORDER BY user_name";

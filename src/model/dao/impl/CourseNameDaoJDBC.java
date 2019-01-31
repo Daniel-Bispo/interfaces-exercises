@@ -2,8 +2,8 @@
  * CourseNameDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -22,10 +22,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.CourseName;
 
-/**
- * Implementation of CrudDAO for CourseNameDaoJDBC entity. It uses JDBC
- * connection only.
- */
 public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 
 	private Connection conn;
@@ -36,8 +32,7 @@ public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 
 	@Override
 	// A new CourseName object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	// parameter for this method
 	public void insert(CourseName obj) {
 
 		String sql = "INSERT INTO course_name (course, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?)";
@@ -78,9 +73,8 @@ public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 	}
 
 	@Override
-	// An new CourseName object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	// A new CourseName object has to be created before. Then use that as the
+	// parameter for this method
 	public void upDate(CourseName obj) {
 
 		String sql = "UPDATE course_name SET course=?, create_date=?, update_date=?, user_loggin=? WHERE id=?";
@@ -126,6 +120,9 @@ public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 	}
 
 	@Override
+	/**
+	 * Returns an CourseName object.
+	 */
 	public CourseName findById(int id) {
 
 		String sql = "SELECT * FROM course_name WHERE id=?";
@@ -154,9 +151,11 @@ public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<CourseName>} containing all CourseName objects in database.
+	 */
 	public List<CourseName> findAll() {
 
-		// A list which contains all CourseName elements read from database
 		List<CourseName> courseNameList = new ArrayList<>();
 
 		String sql = "SELECT * FROM course_name ORDER BY course";

@@ -2,8 +2,8 @@
  * AtaDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 25 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -22,9 +22,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Ata;
 
-/**
- * Implementation of CrudDAO for Ata entity. It uses JDBC connection only.
- */
 public class AtaDaoJDBC implements CrudDAO<Ata> {
 
 	private Connection conn;
@@ -125,6 +122,9 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	}
 
 	@Override
+	/**
+	 * Returns an Ata object.
+	 */
 	public Ata findById(int id) {
 
 		String sql = "SELECT * FROM ata WHERE id=?";
@@ -153,9 +153,11 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<Ata>} containing all Ata objects in database.
+	 */
 	public List<Ata> findAll() {
 
-		// A list which contains all Ata elements read from database
 		List<Ata> ataList = new ArrayList<>();
 
 		String sql = "SELECT * FROM ata ORDER BY ata_number";

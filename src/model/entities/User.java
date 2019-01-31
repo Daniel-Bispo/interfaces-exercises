@@ -8,10 +8,6 @@
  */
 package model.entities;
 
-/**
- * userProfile field is a key on the database table, that's why it receives an
- * UserProfile object
- */
 public final class User {
 
 	private int id;

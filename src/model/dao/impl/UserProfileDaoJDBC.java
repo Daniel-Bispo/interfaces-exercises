@@ -2,8 +2,8 @@
  * UserProfileDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -21,10 +21,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.UserProfile;
 
-/**
- * Implementation of CrudDAO for UserProfileDaoJDBC entity. It uses JDBC
- * connection only.
- */
 public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
 
 	private Connection conn;
@@ -117,6 +113,9 @@ public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
 	}
 
 	@Override
+	/**
+	 * Returns an UserProfile object.
+	 */
 	public UserProfile findById(int id) {
 
 		String sql = "SELECT * FROM user_profile WHERE id=?";
@@ -145,9 +144,11 @@ public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<UserProfile>} containing all UserProfile objects in database.
+	 */
 	public List<UserProfile> findAll() {
 
-		// A list which contains all UserProfile elements read from database
 		List<UserProfile> userProfileList = new ArrayList<>();
 
 		String sql = "SELECT * FROM user_profile ORDER BY user_profile";

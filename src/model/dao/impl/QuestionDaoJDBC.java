@@ -2,8 +2,8 @@
  * QuestionDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 28 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -21,10 +21,6 @@ import db.DbException;
 import model.dao.CrudParametersDAO;
 import model.entities.Question;
 
-/**
- * Implementation of CrudParametersDAO for QuestionDaoJDBC entity. It uses JDBC
- * connection only and cannot be extended for safe.
- */
 public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 
 	private Connection conn;
@@ -34,9 +30,9 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 	}
 
 	@Override
-	// A new Question object has to be created before. Then use that as the
-	// parameter for this method.
 	public void insert(Question obj) {
+		// A new Question object has to be created before. Then use that as the
+		// parameter for this method.
 
 		String sql = "INSERT INTO questions (ata, aircraft, dif_level, course_effec, effectivity, question,"
 				+ " create_date, update_date, user_loggin, approved_by_loggin, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -86,7 +82,7 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 	}
 
 	@Override
-	// An new Question object has to be created before. Then use that as the
+	// A new Question object has to be created before. Then use that as the
 	// parameter for this method
 	public void upDate(Question obj) {
 
@@ -142,6 +138,9 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 	}
 
 	@Override
+	/**
+	 * Returns an Question object.
+	 */
 	public Question findById(int id) {
 
 		String sql = "SELECT * FROM questions WHERE id=?";
@@ -171,9 +170,11 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<Question>} containing all Question objects in database.
+	 */
 	public List<Question> findAll() {
 
-		// A list which contains all Question's elements read from database
 		List<Question> questionList = new ArrayList<>();
 
 		String sql = "SELECT * FROM questions ORDER BY id";
@@ -226,7 +227,7 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 		} else {
 			/*
 			 * If obj has no other parameter it returns all questions according to active
-			 * parameter which default value is true
+			 * parameter on which default value is true
 			 */
 			sql = "SELECT * FROM questions WHERE active='" + obj.isActive() + "'";
 		}

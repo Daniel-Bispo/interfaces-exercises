@@ -2,8 +2,8 @@
  * AnswersDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 28 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -21,10 +21,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Answers;
 
-/**
- * Implementation of CrudDAO for AnswersDaoJDBC entity. It uses JDBC connection
- * only.
- */
 public class AnswersDaoJDBC implements CrudDAO<Answers> {
 
 	private Connection conn;
@@ -34,8 +30,9 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 	}
 
 	@Override
-	// A new Answers object has to be created before. Then use that as the
-	// parameter for this method.
+	/* A new Answers object has to be created before. Then use that as the
+	 * parameter for this method.
+	 */
 	public void insert(Answers obj) {
 
 		String sql = "INSERT INTO answers (id, corr_1, ans_1, corr_2, ans_2, corr_3, ans_3, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -46,10 +43,7 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 
 			pstmt = conn.prepareStatement(sql);
 
-			/*
-			 * The id field is filled manually, since it has to have the same Question's id
-			 * field
-			 */
+			// The id field is filled manually, since it has to have the same Question object's id
 
 			pstmt.setInt(1, obj.getId());
 			pstmt.setString(2, String.valueOf(obj.isCorr1()));
@@ -125,6 +119,9 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 	}
 
 	@Override
+	/**
+	 * Returns an Answers object.
+	 */
 	public Answers findById(int id) {
 
 		String sql = "SELECT * FROM answers WHERE id=?";
@@ -154,9 +151,11 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<Answers>} containing all Answers objects in database.
+	 */
 	public List<Answers> findAll() {
 
-		// A list which contains all User's elements read from database
 		List<Answers> answersList = new ArrayList<>();
 
 		String sql = "SELECT * FROM answers ORDER BY id";

@@ -8,10 +8,6 @@
  */
 package model.entities;
 
-/**
-*
-*
-*/
 public final class Aircraft {
 
 	private int id;

@@ -8,10 +8,6 @@
  */
 package model.entities;
 
-/**
- *
- * The class and fields are final to ensure that class can't be mutable
- */
 public final class Question {
 
 	private int id;

@@ -2,8 +2,8 @@
  * CourseEffectivityDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -22,10 +22,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.CourseEffectivity;
 
-/**
- * Implementation of CrudDAO for CourseEffectivity entity. It uses JDBC
- * connection only.
- */
 public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 
 	private Connection conn;
@@ -36,8 +32,7 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 
 	@Override
 	// A new CourseEffectivity object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	// parameter for this method
 	public void insert(CourseEffectivity obj) {
 
 		String sql = "INSERT INTO course_effectivity (course_effec_info, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?)";
@@ -78,9 +73,8 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	}
 
 	@Override
-	// An new CourseEffectivity object has to be created before. Then use that as
-	// the parameter
-	// for this method
+	// A new CourseEffectivity object has to be created before. Then use that as
+	// the parameter for this method
 	public void upDate(CourseEffectivity obj) {
 
 		String sql = "UPDATE course_effectivity SET course_effec_info=?, create_date=?, update_date=?, user_loggin=? WHERE id=?";
@@ -126,6 +120,9 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	}
 
 	@Override
+	/**
+	 * Returns an CourseEffectivity object.
+	 */
 	public CourseEffectivity findById(int id) {
 
 		String sql = "SELECT * FROM course_effectivity WHERE id=?";
@@ -154,9 +151,11 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<CourseEffectivity>} containing all CourseEffectivity objects in database.
+	 */
 	public List<CourseEffectivity> findAll() {
 
-		// A list which contains all CourseEffectivity elements read from database
 		List<CourseEffectivity> courseEffectivityList = new ArrayList<>();
 
 		String sql = "SELECT * FROM course_effectivity ORDER BY course_effec_info";

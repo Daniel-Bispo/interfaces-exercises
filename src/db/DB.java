@@ -18,7 +18,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * It establishes the main DataBase connection
+ * Establishes the main DataBase connection
  */
 public class DB {
 
@@ -56,14 +56,12 @@ public class DB {
 		}
 	}
 	
-	/**
+	/*
 	 * The following methods are here to make it possible to
 	 * throw any exception related to connection from DB class only.
 	 * So that, most exception connections can be managed here.
 	 */
 	
-	
-	// Close statement
 	public static void closeStatement(Statement stmt) {
 		if(stmt != null) {
 			try {
@@ -74,7 +72,6 @@ public class DB {
 		}
 	}
 	
-	// Close resultSet
 	public static void closeResultSet(ResultSet rs) {
 		if(rs != null) {
 			try {
@@ -85,7 +82,6 @@ public class DB {
 		}
 	}
 	
-	// CLose connection
 	public static void closeConnection() {
 		if(conn != null) {
 			

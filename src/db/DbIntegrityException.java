@@ -10,7 +10,7 @@ package db;
 
 /**
  * It throws DataBase integrity exception: any DB register deletion which has
- * connection with another DB table
+ * connection with another DB table.
  */
 public class DbIntegrityException extends RuntimeException {
 

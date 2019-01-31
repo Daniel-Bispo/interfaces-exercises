@@ -3,7 +3,7 @@
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
  *
- *  Created on 01-2019
+ *  Created in 2019
  *  
  */
 package model.dao;
@@ -28,8 +28,34 @@ import model.entities.Question;
 import model.entities.User;
 import model.entities.UserProfile;
 
-// Instantiates all methods of each model.dao.impl. entity
-// which interacts with the database
+/** 
+ * Connects the entity class to the database.
+ * 
+ * <p><u>These are the static methods:</u></p>
+ * <blockquote>
+ * 		<li>createAtaDAO()</li>
+ * 		<li>createAircraftDAO()</li>
+ * 		<li>createCourseEffectivityDAO()</li>
+ * 		<li>createEffectivityDAO()</li>
+ * 		<li>createCourseNameDAO()</li>
+ * 		<li>createUserProfileDAO()</li>
+ * 		<li>createUserDAO()</li>
+ * 		<li>createAnswersDAO()</li>
+ * 		<li>createQuestionDAO()</li>
+ * </blockquote>
+ * 
+ * @return Each method returns its specific database connection.
+ * 
+ * @see <li>{@link model.dao.impl.AtaDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.AircraftDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.CourseEffectivityDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.EffectivityDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.CourseNameDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.UserProfileDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.UserDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.AnswersDaoJDBC}</li>
+ * 		<li>{@link model.dao.impl.QuestionDaoJDBC}</li>
+ */
 public class DaoFactory {
 	
 	/**

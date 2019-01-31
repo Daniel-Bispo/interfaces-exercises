@@ -2,8 +2,8 @@
  * CourseNameDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -22,10 +22,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Effectivity;
 
-/**
- * Implementation of CrudDAO for CourseNameDaoJDBC entity. It uses JDBC
- * connection only.
- */
 public class EffectivityDaoJDBC implements CrudDAO<Effectivity> {
 
 	private Connection conn;
@@ -36,8 +32,7 @@ public class EffectivityDaoJDBC implements CrudDAO<Effectivity> {
 
 	@Override
 	// A new Effectivity object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	// parameter for this method
 	public void insert(Effectivity obj) {
 
 		String sql = "INSERT INTO effectivity (effec_info, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?)";
@@ -78,9 +73,8 @@ public class EffectivityDaoJDBC implements CrudDAO<Effectivity> {
 	}
 
 	@Override
-	// An new Effectivity object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	// A new Effectivity object has to be created before. Then use that as the
+	// parameter for this method
 	public void upDate(Effectivity obj) {
 
 		String sql = "UPDATE effectivity SET effec_info=?, create_date=?, update_date=?, user_loggin=? WHERE id=?";
@@ -126,6 +120,9 @@ public class EffectivityDaoJDBC implements CrudDAO<Effectivity> {
 	}
 
 	@Override
+	/**
+	 * Returns an Effectivity object.
+	 */
 	public Effectivity findById(int id) {
 
 		String sql = "SELECT * FROM effectivity WHERE id=?";
@@ -154,9 +151,11 @@ public class EffectivityDaoJDBC implements CrudDAO<Effectivity> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<Effectivity>} containing all Effectivity objects in database.
+	 */
 	public List<Effectivity> findAll() {
 
-		// A list which contains all Effectivity elements read from database
 		List<Effectivity> effectivityList = new ArrayList<>();
 
 		String sql = "SELECT * FROM effectivity ORDER BY effec_info";

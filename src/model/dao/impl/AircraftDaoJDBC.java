@@ -2,8 +2,8 @@
  * AircraftDaoJDBC.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 27 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao.impl;
@@ -22,10 +22,6 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Aircraft;
 
-/**
- * Implementation of CrudDAO for Aircraft entity. It uses JDBC connection only.
- * @param test
- */
 public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 
 	private Connection conn;
@@ -35,12 +31,6 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	/**
-     * Adds a new {@code Aircraft} into the database.
-     *
-     * @param  obj
-     *         The {@code Aircraft} fields
-     */
 	public void insert(Aircraft obj) {
 
 		String sql = "INSERT INTO aircraft (aircraft, create_date, update_date, user_loggin) VALUES (?, ?, ?, ?)";
@@ -81,9 +71,9 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
-	// An new Aircraft object has to be created before. Then use that as the
-	// parameter
-	// for this method
+	/* An new Aircraft object has to be created before. Then use that as the
+	 * parameter for this method
+	 */
 	public void upDate(Aircraft obj) {
 
 		String sql = "UPDATE aircraft SET aircraft=?, create_date=?, update_date=?, user_loggin=? WHERE id=?";
@@ -129,6 +119,9 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
+	/**
+	 * Returns an Aircraft object.
+	 */
 	public Aircraft findById(int id) {
 
 		String sql = "SELECT * FROM aircraft WHERE id=?";
@@ -157,9 +150,11 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	}
 
 	@Override
+	/**
+	 * Returns a {@code List<Aircraft>} containing all Aircraft objects in database.
+	 */
 	public List<Aircraft> findAll() {
 
-		// A list which contains all Aircraft elements read from database
 		List<Aircraft> aircraftList = new ArrayList<>();
 
 		String sql = "SELECT * FROM aircraft ORDER BY aircraft";
@@ -187,7 +182,7 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 		}
 	}
 
-	// Instantiate an Aircraft object used by findAll()
+	// Instantiate an Aircraft object used by findAll() and findById()
 	private Aircraft createAircraftObj(ResultSet rs) throws SQLException {
 
 		Aircraft aircraft = new Aircraft();
