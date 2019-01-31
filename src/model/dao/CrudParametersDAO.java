@@ -2,8 +2,8 @@
  * CrudParametersDAO.java
  *
  *  @author Daniel Bispo <danielvbispo@outlook.com>
- *  Created on 30 de jan de 2019
- *  GNU License
+ *  
+ *  Created in 2019
  *
  */
 package model.dao;
