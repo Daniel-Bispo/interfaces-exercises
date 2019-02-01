@@ -22,7 +22,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.CourseName;
 
-public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
+public class CourseNameDaoJDBC extends CrudDAO<CourseName> {
 
 	private Connection conn;
 
@@ -154,7 +154,7 @@ public class CourseNameDaoJDBC implements CrudDAO<CourseName> {
 	/**
 	 * Returns a {@code List<CourseName>} containing all CourseName objects in database.
 	 */
-	public List<CourseName> findAll() {
+	public List<CourseName> findAll(CourseName obj, CrudDAO.actionType filter) {
 
 		List<CourseName> courseNameList = new ArrayList<>();
 

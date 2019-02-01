@@ -22,7 +22,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.CourseEffectivity;
 
-public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
+public class CourseEffectivityDaoJDBC extends CrudDAO<CourseEffectivity> {
 
 	private Connection conn;
 
@@ -154,7 +154,7 @@ public class CourseEffectivityDaoJDBC implements CrudDAO<CourseEffectivity> {
 	/**
 	 * Returns a {@code List<CourseEffectivity>} containing all CourseEffectivity objects in database.
 	 */
-	public List<CourseEffectivity> findAll() {
+	public List<CourseEffectivity> findAll(CourseEffectivity obj, CrudDAO.actionType filter) {
 
 		List<CourseEffectivity> courseEffectivityList = new ArrayList<>();
 

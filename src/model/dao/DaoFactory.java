@@ -279,7 +279,7 @@ public class DaoFactory {
 	 * 
 	 * @return A new QuestionDaoJDBC represented by this object.
 	 */
-	public static CrudParametersDAO<Question> createQuestionDAO() {
+	public static CrudDAO<Question> createQuestionDAO() {
 		return new QuestionDaoJDBC(DB.getConnection());
 	}
 }

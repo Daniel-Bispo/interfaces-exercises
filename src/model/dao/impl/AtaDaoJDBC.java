@@ -22,7 +22,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Ata;
 
-public class AtaDaoJDBC implements CrudDAO<Ata> {
+public class AtaDaoJDBC extends CrudDAO<Ata> {
 
 	private Connection conn;
 
@@ -156,7 +156,7 @@ public class AtaDaoJDBC implements CrudDAO<Ata> {
 	/**
 	 * Returns a {@code List<Ata>} containing all Ata objects in database.
 	 */
-	public List<Ata> findAll() {
+	public List<Ata> findAll(Ata obj, CrudDAO.actionType filter) {
 
 		List<Ata> ataList = new ArrayList<>();
 

@@ -22,7 +22,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Aircraft;
 
-public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
+public class AircraftDaoJDBC extends CrudDAO<Aircraft> {
 
 	private Connection conn;
 
@@ -153,7 +153,7 @@ public class AircraftDaoJDBC implements CrudDAO<Aircraft> {
 	/**
 	 * Returns a {@code List<Aircraft>} containing all Aircraft objects in database.
 	 */
-	public List<Aircraft> findAll() {
+	public List<Aircraft> findAll(Aircraft obj, CrudDAO.actionType filter) {
 
 		List<Aircraft> aircraftList = new ArrayList<>();
 

@@ -21,7 +21,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.Answers;
 
-public class AnswersDaoJDBC implements CrudDAO<Answers> {
+public class AnswersDaoJDBC extends CrudDAO<Answers> {
 
 	private Connection conn;
 
@@ -154,7 +154,7 @@ public class AnswersDaoJDBC implements CrudDAO<Answers> {
 	/**
 	 * Returns a {@code List<Answers>} containing all Answers objects in database.
 	 */
-	public List<Answers> findAll() {
+	public List<Answers> findAll(Answers obj, CrudDAO.actionType filter) {
 
 		List<Answers> answersList = new ArrayList<>();
 

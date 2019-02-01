@@ -10,6 +10,7 @@ package model.dao;
 
 import java.util.List;
 
+
 /** 
  * Interfaces all common methods with each model.dao.impl entity to connect to the database.
  * 
@@ -45,16 +46,24 @@ import java.util.List;
  * 		<li>{@link model.dao.impl.AnswersDaoJDBC}</li>
  * 		<li>{@link model.dao.impl.QuestionDaoJDBC}</li>
  */
-public interface CrudDAO<T> {
+
+
+public abstract class CrudDAO<T> {
+	
+	// Defines the type of the searching
+	public enum actionType{FIND_BY_PARAMETERS, FIND_ALL};
+	
 	/* Each method is detailed into its implementation */
 
-	void insert(T obj);
+	public abstract void insert(T obj);
 
-	void upDate(T obj);
+	public abstract void upDate(T obj);
 
-	void deleteById(int id);
+	public abstract void deleteById(int id);
 
-	T findById(int id);
+	public abstract T findById(int id);
 
-	List<T> findAll();
+	/* As parameter use  a private function like (Question)-> {findByParameters(Question obj)}
+	 * to filter the find function */
+	public abstract List<T> findAll( T obj, actionType filter); 
 }

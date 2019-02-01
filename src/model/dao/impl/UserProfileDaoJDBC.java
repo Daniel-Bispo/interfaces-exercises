@@ -21,7 +21,7 @@ import db.DbException;
 import model.dao.CrudDAO;
 import model.entities.UserProfile;
 
-public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
+public class UserProfileDaoJDBC extends CrudDAO<UserProfile> {
 
 	private Connection conn;
 
@@ -147,7 +147,7 @@ public class UserProfileDaoJDBC implements CrudDAO<UserProfile> {
 	/**
 	 * Returns a {@code List<UserProfile>} containing all UserProfile objects in database.
 	 */
-	public List<UserProfile> findAll() {
+	public List<UserProfile> findAll(UserProfile obj, CrudDAO.actionType filter) {
 
 		List<UserProfile> userProfileList = new ArrayList<>();
 

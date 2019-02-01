@@ -18,18 +18,21 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import model.dao.CrudParametersDAO;
+import model.dao.CrudDAO;
 import model.entities.Question;
 
-public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
+public final class QuestionDaoJDBC extends CrudDAO<Question> {
 
-	private Connection conn;
+	private static Connection conn;
 
-	public QuestionDaoJDBC(Connection conn) {
-		this.conn = conn;
+	public QuestionDaoJDBC(Connection newConn) {
+		conn = newConn;
 	}
 
-	@Override
+	public enum actionType {
+		BYPARAMETERS
+	};
+
 	public void insert(Question obj) {
 		// A new Question object has to be created before. Then use that as the
 		// parameter for this method.
@@ -81,7 +84,6 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 		}
 	}
 
-	@Override
 	// A new Question object has to be created before. Then use that as the
 	// parameter for this method
 	public void upDate(Question obj) {
@@ -117,7 +119,6 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 		}
 	}
 
-	@Override
 	public void deleteById(int id) {
 
 		String sql = "DELETE FROM questions WHERE id=?";
@@ -137,7 +138,6 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 		}
 	}
 
-	@Override
 	/**
 	 * Returns an Question object.
 	 */
@@ -169,41 +169,7 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 		}
 	}
 
-	@Override
-	/**
-	 * Returns a {@code List<Question>} containing all Question objects in database.
-	 */
-	public List<Question> findAll() {
-
-		List<Question> questionList = new ArrayList<>();
-
-		String sql = "SELECT * FROM questions ORDER BY id";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				questionList.add(createQuestionObj(rs));
-			}
-
-			return questionList;
-
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closeStatement(pstmt);
-			DB.closeResultSet(rs);
-		}
-	}
-
-	@Override
-	public List<Question> findByParameters(Question obj) {
+	private List<Question> findByParameters(Question obj) {
 
 		List<Question> foundQuestionsList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -264,5 +230,51 @@ public final class QuestionDaoJDBC implements CrudParametersDAO<Question> {
 				rs.getString("approved_by_loggin"), Boolean.valueOf(rs.getString("active")));
 
 		return question;
+	}
+
+	
+	/*
+	 * Returns a {@code List<Question>} containing all Question objects in database.
+	 * 
+	 */
+	@Override
+	public List<Question> findAll(Question obj, CrudDAO.actionType filter) {
+
+		List<Question> questionList = new ArrayList<>();
+		
+		if (filter == CrudDAO.actionType.FIND_ALL) {
+
+
+			String sql = "SELECT * FROM questions ORDER BY id";
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+
+					questionList.add(createQuestionObj(rs));
+				}
+
+				return questionList;
+
+			} catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			} finally {
+				DB.closeStatement(pstmt);
+				DB.closeResultSet(rs);
+			}
+		}
+		
+		if(filter == CrudDAO.actionType.FIND_BY_PARAMETERS) {
+			questionList  = findByParameters(obj);
+			return questionList;
+		}
+		
+		return questionList;
 	}
 }
